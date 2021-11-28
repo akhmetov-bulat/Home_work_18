@@ -19,21 +19,20 @@ def init_db(app, db):
     import csv
 
     with app.app_context():
-        db.drop_all()
-        db.create_all()
         with db.session.begin():
+            db.drop_all()
+            db.create_all()
             entities = []
             with open('dao/database/movies.csv', 'r', encoding='UTF-8') as f:
                 for item in csv.DictReader(f):
+                    item['rating'] = item['rating'].replace(',','.')
                     entities.append(movie.Movie(**item))
-                    print(item)
             with open('dao/database/genres.csv', 'r', encoding='UTF-8') as f:
                 for item in csv.DictReader(f):
                     entities.append(genre.Genre(**item))
-                    print(item)
             with open('dao/database/directors.csv', 'r', encoding='UTF-8') as f:
                 for item in csv.DictReader(f):
                     entities.append(director.Director(**item))
-                    print(item)
             db.session.add_all(entities)
+
 
