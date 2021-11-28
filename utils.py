@@ -25,7 +25,7 @@ def init_db(app, db):
             entities = []
             with open('dao/database/movies.csv', 'r', encoding='UTF-8') as f:
                 for item in csv.DictReader(f):
-                    item['rating'] = item['rating'].replace(',','.')
+                    item['rating'] = item['rating'].replace(',', '.')
                     entities.append(movie.Movie(**item))
             with open('dao/database/genres.csv', 'r', encoding='UTF-8') as f:
                 for item in csv.DictReader(f):
@@ -34,5 +34,3 @@ def init_db(app, db):
                 for item in csv.DictReader(f):
                     entities.append(director.Director(**item))
             db.session.add_all(entities)
-
-

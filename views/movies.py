@@ -1,8 +1,7 @@
-
 from dao.model.movie import Movie, MovieSchema
-from flask_restx import Api, Resource, Namespace
+from flask_restx import Resource, Namespace
 from implemented import movie_service
-from flask import request, jsonify, Response
+from flask import request
 
 # from flask_restx import reqparse
 # parser = reqparse.RequestParser()
@@ -32,7 +31,7 @@ class MovieView(Resource):
         movies = movie_service.get_all(drctr=director_id, gnr=genre_id, yr=year)
         if movies:
             return movies_schema.dump(movies), 200
-        return "", 404
+        return "not found", 404
 
     def post(self):
         movie = movie_service.create(request.json)
@@ -60,7 +59,7 @@ class MovieViewMid(Resource):
 
     def patch(self, mid):
         if movie_service.update(mid, request.json):
-            return "", 200
+            return "success", 200
         return "", 400
 
     def delete(self, mid):

@@ -12,7 +12,7 @@ class MovieDao:
         return movie
 
     def get_all(self, drctr, gnr, yr):
-        print('dao',drctr, gnr, yr)
+        print('dao', drctr, gnr, yr)
         if drctr:
             if gnr:
                 if yr:
@@ -21,14 +21,14 @@ class MovieDao:
                                                               Movie.year == int(yr)).all()
                 else:
                     movies = self.session.query(Movie).filter(Movie.director_id == int(drctr),
-                                                          Movie.genre_id == int(gnr)).all()
+                                                              Movie.genre_id == int(gnr)).all()
             elif yr:
                 movies = self.session.query(Movie).filter(Movie.director_id == int(drctr),
                                                           Movie.year == int(yr)).all()
             else:
                 movies = self.session.query(Movie).filter(Movie.director_id == int(drctr)).all()
         elif yr:
-                movies = self.session.query(Movie).filter(Movie.year == int(yr)).all()
+            movies = self.session.query(Movie).filter(Movie.year == int(yr)).all()
         elif gnr:
             movies = self.session.query(Movie).filter(Movie.genre_id == int(gnr)).all()
         else:
@@ -42,7 +42,7 @@ class MovieDao:
             self.session.commit()
             return new_movie
         except:
-            pass
+            return ""
 
     def update(self, mid, movie_json):
         try:
@@ -52,18 +52,13 @@ class MovieDao:
         except:
             return False
 
-
     def delete(self, mid):
-        # try:
-        #     movie = self.get_one(mid)
-        #     self.session.delete(movie)
-        #     self.session.commit()
-        #     return True
-        # except:
-        #     return False
-        movie = self.get_one(mid)
-        if movie:
-            self.session.delete(movie)
-            self.session.commit()
-            return True
-        return False
+        try:
+            movie = self.get_one(mid)
+            if movie:
+                self.session.delete(movie)
+                self.session.commit()
+                return True
+            return False
+        except:
+            return False

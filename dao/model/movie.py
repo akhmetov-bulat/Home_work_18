@@ -4,7 +4,6 @@ from marshmallow import Schema, fields
 
 class Movie(db.Model):
     table_keys = {"id", "title", "description", "trailer", "year", "rating", "genre_id","director_id"}
-
     __tablename__ = 'movies'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))
@@ -16,18 +15,6 @@ class Movie(db.Model):
     director_id = db.Column(db.Integer, db.ForeignKey('directors.id'))
     genre = db.relationship('Genre')
     director = db.relationship('Director')
-
-    def to_json(self):
-        json_data = {"id": self.id,
-                     "title": self.title,
-                     "description": self.description,
-                     "trailer": self.trailer,
-                     "year": self.year,
-                     "rating": self.rating,
-                     "genre_id": self.genre_id,
-                     "director_id": self.director_id
-                     }
-        return json_data
 
 
 class MovieSchema(Schema):

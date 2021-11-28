@@ -23,6 +23,7 @@ def register_extensions(app):
     api.add_namespace(genre_ns)
     init_db(app, db)
 
+
 cfg = Config()
 app = create_app(cfg)
 register_extensions(app)
