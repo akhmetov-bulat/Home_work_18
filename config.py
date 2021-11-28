@@ -1,8 +1,13 @@
-# Это файл конфигурации приложения, здесь может хранится путь к бд, ключ шифрования, что-то еще.
-# Чтобы добавить новую настройку, допишите ее в класс.
+from constants import DB_FILENAME
 
-# Пример
 
-# class Config(object):
-#     DEBUG = True
-#     SECRET_HERE = '249y823r9v8238r9u'
+class Config():
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{DB_FILENAME}'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DEBUG = True
+    HOST = "localhost"
+    PORT = 5000
+    JSON_AS_ASCII = False
+    JSONIFY_PRETTYPRINT_REGULAR = True
+    JSON_SORT_KEYS = False
+    SECRET_HERE = 'asdkljfh87y3245kjlbasjkhdgvb'
